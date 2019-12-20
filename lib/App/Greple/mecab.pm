@@ -1,39 +1,58 @@
-package App::Greple::mecab;
-use 5.008001;
-use strict;
-use warnings;
-
-our $VERSION = "0.01";
-
-
-
-1;
-__END__
-
-=encoding utf-8
-
 =head1 NAME
 
-App::Greple::mecab - It's new $module
+mecab - Greple module to produce result by mecab
+
+=head1 VERSION
+
+Version 0.01
 
 =head1 SYNOPSIS
 
-    use App::Greple::mecab;
+greple -Mmecab
 
 =head1 DESCRIPTION
 
-App::Greple::mecab is ...
+=head1 SEE ALSO
+
+L<App::cdif::Command::mecab>
 
 =head1 LICENSE
 
-Copyright (C) Kaz Utashiro.
+Copyright (C) Kazumasa Utashiro.
 
-This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself.
+These commands and libraries are free software; you can redistribute
+it and/or modify it under the same terms as Perl itself.
 
 =head1 AUTHOR
 
-Kaz Utashiro E<lt>kaz@utashiro.comE<gt>
+Kazumasa Utashiro
 
 =cut
 
+package App::Greple::mecab;
+
+use v5.14;
+use strict;
+use warnings;
+
+our $VERSION = "0.01"; 
+
+use App::cdif::Command::Mecab;
+
+my $mecab = new App::cdif::Command::Mecab;
+
+sub split {
+    my $s = 0;
+    map {
+	[ $s + 0, $s += length ]
+    }
+    $mecab->wordlist($_);
+}
+
+1;
+
+__DATA__
+
+#option default --mecab
+
+option --mecab --le &__PACKAGE__::split

@@ -1,7 +1,7 @@
 {
-   "abstract" : "It's new $module",
+   "abstract" : "Greple module to produce result by mecab",
    "author" : [
-      "Kaz Utashiro <kaz@utashiro.com>"
+      "Kazumasa Utashiro"
    ],
    "dynamic_config" : 0,
    "generated_by" : "Minilla/v3.1.6, CPAN::Meta::Converter version 2.143240",
@@ -42,7 +42,8 @@
       },
       "runtime" : {
          "requires" : {
-            "perl" : "5.008001"
+            "App::sdif" : "v4.12.0",
+            "perl" : "v5.14.0"
          }
       },
       "test" : {
@@ -54,5 +55,8 @@
    "release_status" : "unstable",
    "version" : "0.01",
    "x_authority" : "cpan:UTASHIRO",
+   "x_contributors" : [
+      "Kaz Utashiro <kaz@utashiro.com>"
+   ],
    "x_static_install" : 1
 }

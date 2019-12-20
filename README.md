@@ -1,22 +1,28 @@
 # NAME
 
-App::Greple::mecab - It's new $module
+mecab - Greple module to produce result by mecab
+
+# VERSION
+
+Version 0.01
 
 # SYNOPSIS
 
-    use App::Greple::mecab;
+greple -Mmecab
 
 # DESCRIPTION
 
-App::Greple::mecab is ...
+# SEE ALSO
+
+[App::cdif::Command::mecab](https://metacpan.org/pod/App::cdif::Command::mecab)
 
 # LICENSE
 
-Copyright (C) Kaz Utashiro.
+Copyright (C) Kazumasa Utashiro.
 
-This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself.
+These commands and libraries are free software; you can redistribute
+it and/or modify it under the same terms as Perl itself.
 
 # AUTHOR
 
-Kaz Utashiro <kaz@utashiro.com>
+Kazumasa Utashiro
