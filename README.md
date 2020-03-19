@@ -16,13 +16,13 @@ greple -Mmecab
 
 [App::cdif::Command::mecab](https://metacpan.org/pod/App::cdif::Command::mecab)
 
-# LICENSE
-
-Copyright (C) Kazumasa Utashiro.
-
-These commands and libraries are free software; you can redistribute
-it and/or modify it under the same terms as Perl itself.
-
 # AUTHOR
 
 Kazumasa Utashiro
+
+# LICENSE
+
+Copyright (C) 2019 Kazumasa Utashiro.
+
+These commands and libraries are free software; you can redistribute
+it and/or modify it under the same terms as Perl itself.
