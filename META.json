@@ -4,13 +4,13 @@
       "Kazumasa Utashiro"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Minilla/v3.1.9, CPAN::Meta::Converter version 2.143240",
+   "generated_by" : "Minilla/v3.1.19, CPAN::Meta::Converter version 2.150010",
    "license" : [
       "perl_5"
    ],
    "meta-spec" : {
       "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
-      "version" : "2"
+      "version" : 2
    },
    "name" : "App-Greple-mecab",
    "no_index" : {
@@ -42,7 +42,8 @@
       },
       "runtime" : {
          "requires" : {
-            "App::sdif" : "v4.12.0",
+            "App::Greple" : "8.58",
+            "App::sdif" : "v4.22.3",
             "perl" : "v5.14.0"
          }
       },
@@ -53,10 +54,22 @@
       }
    },
    "release_status" : "unstable",
+   "resources" : {
+      "bugtracker" : {
+         "web" : "https://github.com/kaz-utashiro/greple-mecab/issues"
+      },
+      "homepage" : "https://github.com/kaz-utashiro/greple-mecab",
+      "repository" : {
+         "type" : "git",
+         "url" : "https://github.com/kaz-utashiro/greple-mecab.git",
+         "web" : "https://github.com/kaz-utashiro/greple-mecab"
+      }
+   },
    "version" : "0.01",
    "x_authority" : "cpan:UTASHIRO",
    "x_contributors" : [
-      "Kaz Utashiro <kaz@utashiro.com>"
+      "Kazumasa Utashiro <kaz@utashiro.com>"
    ],
+   "x_serialization_backend" : "JSON::PP version 4.07",
    "x_static_install" : 1
 }

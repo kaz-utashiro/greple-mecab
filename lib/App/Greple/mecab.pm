@@ -12,6 +12,10 @@ greple -Mmecab
 
 =head1 DESCRIPTION
 
+Work in progress.
+
+現時点では、--mecab オプションで品詞毎に色分けした結果を出力する。
+
 =head1 SEE ALSO
 
 L<App::cdif::Command::mecab>
@@ -22,7 +26,7 @@ Kazumasa Utashiro
 
 =head1 LICENSE
 
-Copyright 2019 Kazumasa Utashiro.
+Copyright 2019- Kazumasa Utashiro.
 
 These commands and libraries are free software; you can redistribute
 it and/or modify it under the same terms as Perl itself.
@@ -34,6 +38,7 @@ package App::Greple::mecab;
 use v5.14;
 use strict;
 use warnings;
+use utf8;
 
 our $VERSION = "0.01"; 
 our $debug = 0;
@@ -75,14 +80,13 @@ sub wordlist {
     my $uniq_index = new UniqIndex;
     my @mecab = do {
 	grep { not $removeme->($_->[1]) }
-#	grep { length $_->[1] }
 	map  {
 	    $is_newline->() ? [ undef, "\n" ] : do {
-#		/^(\d+) (\s*)(\S+)$/a or die "Data error: \"$_\"\n";
 		/^(.*?,.*?),\S+ (\s*)(\S+)$/a or die "Data error: \"$_\"\n";
+		my($品詞, $空白, $単語) = ($1, $2, $3);
 		(
 		 defined $2 ? [ undef, $2 ] : (),
-		 [ $uniq_index->index($1), $3 ]
+		 [ $uniq_index->index($品詞), $単語 ]
 		)
 	    }
 	}

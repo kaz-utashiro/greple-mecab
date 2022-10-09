@@ -12,9 +12,11 @@ greple -Mmecab
 
 # DESCRIPTION
 
+Work in progress.
+
 # SEE ALSO
 
-[App::cdif::Command::mecab](https://metacpan.org/pod/App::cdif::Command::mecab)
+[App::cdif::Command::mecab](https://metacpan.org/pod/App%3A%3Acdif%3A%3ACommand%3A%3Amecab)
 
 # AUTHOR
 
@@ -22,7 +24,7 @@ Kazumasa Utashiro
 
 # LICENSE
 
-Copyright (C) 2019 Kazumasa Utashiro.
+Copyright 2019- Kazumasa Utashiro.
 
 These commands and libraries are free software; you can redistribute
 it and/or modify it under the same terms as Perl itself.
