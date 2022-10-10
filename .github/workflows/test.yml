@@ -1,0 +1,31 @@
+name: test
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        perl: [ '5.36', '5.30', '5.28', '5.18', '5.14' ]
+    name: Perl ${{ matrix.perl }}
+    steps:
+      - uses: actions/checkout@master
+      - name: Setup perl
+        uses: shogo82148/actions-setup-perl@v1
+        with:
+          perl-version: ${{ matrix.perl }}
+      - run: perl -V
+      - uses: tecoli-com/actions-use-apt-tools@v0
+        with:
+          tools: mecab mecab-ipadic-utf8
+          method: timestamp
+      - run: |
+          mecab --version
+          echo 私の名前は中野です | mecab
+      - run: cpanm --installdeps --notest --quiet .
+      - run: prove -lv t
+      - run: perl -Ilib -S greple -Mmecab --mecab-debug --color=always --mecab t/SAMPLE.txt

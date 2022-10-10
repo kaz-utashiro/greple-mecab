@@ -1,3 +1,14 @@
+package App::Greple::mecab;
+
+use v5.14;
+use strict;
+use warnings;
+use utf8;
+
+our $VERSION = "0.01"; 
+
+=encoding utf-8
+
 =head1 NAME
 
 mecab - Greple module to produce result by mecab
@@ -33,15 +44,7 @@ it and/or modify it under the same terms as Perl itself.
 
 =cut
 
-package App::Greple::mecab;
-
-use v5.14;
-use strict;
-use warnings;
-use utf8;
-
-our $VERSION = "0.01"; 
-our $debug = 0;
+our $mecab_debug = 0;
 
 use parent 'App::cdif::Command';
 use App::Greple::Util;
@@ -74,20 +77,30 @@ sub wordlist {
     $eos++ while $text =~ /$eos/;
     my $is_newline = sub { $_ eq $eos };
 
-    my $mecab = [ 'mecab', '--node-format', '%H %M\\n', '--eos-format', "$eos\\n" ];
+    my $mecab = [ 'mecab', '--node-format', '%M\\t%H\\n', '--eos-format', "$eos\\n" ];
     my $result = $obj->command($mecab)->setstdin($text)->update->data;
-    warn $result =~ s/^/MECAB: /mgr if $debug;
+    warn $result =~ s/^/MECAB: /mgr if $mecab_debug;
     my $uniq_index = new UniqIndex;
+    my $sp_index = $uniq_index->index('記号,空白');
     my @mecab = do {
 	grep { not $removeme->($_->[1]) }
 	map  {
-	    $is_newline->() ? [ undef, "\n" ] : do {
-		/^(.*?,.*?),\S+ (\s*)(\S+)$/a or die "Data error: \"$_\"\n";
-		my($品詞, $空白, $単語) = ($1, $2, $3);
+	    $is_newline->() ? [ $sp_index, "\n" ] : do {
+		m{  ^
+		    (?<空白> [ \t]* )
+		    (?<単語> \S+ )
+		    \t
+		    (?<品詞> [^,\n]*,[^,\n]* )
+		}xa
+		    or die "Mecab format error: \"$_\"\n";
+		#
+		# 英単語の場合、直前の空白と連結して認識される
+		#
+		my($空白, $単語, $品詞) = @+{qw(空白 単語 品詞)};
 		(
-		 defined $2 ? [ undef, $2 ] : (),
-		 [ $uniq_index->index($品詞), $単語 ]
-		)
+		    $空白 ne '' ? [ $sp_index, $空白 ] : (),
+		    [ $uniq_index->index($品詞), $単語 ]
+		);
 	    }
 	}
 	$result =~ /^(.+)\n/amg;
@@ -98,9 +111,9 @@ sub wordlist {
 my $mecab = __PACKAGE__->new();
 
 sub split {
-    my $s = 0;
+    my $pos = 0;
     map {
-	[ $s + 0, $s += length($_->[1]), $_->[0] // 0 ]
+	[ $pos + 0, $pos += length($_->[1]), $_->[0] // 0 ]
     }
     $mecab->wordlist($_);
 }
@@ -108,6 +121,10 @@ sub split {
 1;
 
 __DATA__
+
+option default -Mcolors --light --dark --solarized-bg
+
+builtin mecab-debug! $mecab_debug
 
 #option default --mecab
 
