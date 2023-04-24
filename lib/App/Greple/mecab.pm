@@ -37,7 +37,7 @@ Kazumasa Utashiro
 
 =head1 LICENSE
 
-Copyright 2019- Kazumasa Utashiro.
+Copyright 2019-2023 Kazumasa Utashiro.
 
 These commands and libraries are free software; you can redistribute
 it and/or modify it under the same terms as Perl itself.
